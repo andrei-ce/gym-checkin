@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify';
-import { register } from './controllers/userController';
+import { UserController } from './controllers/userController';
+
+const userController = new UserController();
 
 export const appRoutes = async (app: FastifyInstance) => {
-  app.post('/users', register);
+  app.post('/users', userController.register);
 };
