@@ -1,14 +1,16 @@
 import { z } from 'zod';
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { RegisterService } from '@/services/registerService';
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
 import {
   UserAlreadyExistsError,
   UserInvalidCredentialsError,
 } from '@/services/errors/user-errors';
-import { AuthService } from '@/services/authService';
+import { UserServicesFactory } from '@/services/factories/make-registerService';
 
 export class UserController {
+  private userServices = new UserServicesFactory();
+  private registerService = this.userServices.makeRegisterService();
+  private authService = this.userServices.makeAuthService();
+
   async register(request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({
       name: z.string(),
@@ -19,10 +21,7 @@ export class UserController {
     const { name, email, password } = registerBodySchema.parse(request.body);
 
     try {
-      // SOLI(D)
-      const repositoryType = new PrismaUsersRepository();
-      const registerService = new RegisterService(repositoryType);
-      await registerService.handle({ name, email, password });
+      await this.registerService.handle({ name, email, password });
     } catch (error) {
       if (error instanceof UserAlreadyExistsError) {
         return reply.status(409).send({ message: error.message });
@@ -41,9 +40,7 @@ export class UserController {
     const { email, password } = authenticateBodySchema.parse(request.body);
 
     try {
-      // SOLI(D)
-      const repositoryType = new PrismaUsersRepository();
-      const authService = new AuthService(repositoryType);
+      const authService = this.authService;
       await authService.handle({ email, password });
     } catch (error) {
       if (error instanceof UserInvalidCredentialsError) {
