@@ -4,7 +4,7 @@ GymPass-style backend application
 
 ## Functional requirements
 
-- [] A user should be able to register
+- [x] A user should be able to register
 - [] A user should be able to authenticate
 - [] Service should be able to get the logged user's profile
 - [] Service should be able to show how many times a logged user has checked in
@@ -17,7 +17,7 @@ GymPass-style backend application
 
 ## Business logic
 
-- [] User should not be able to register with an existing email
+- [x] User should not be able to register with an existing email
 - [] User should only be able to check into a gym that is <= 100m
 - [] User should not be able to check-in > 1x per day
 - [] Check-in should be validated <= 20 min after its been created
@@ -26,7 +26,7 @@ GymPass-style backend application
 
 ## Non-functional requirements
 
-- [] User password must be encrypted
-- [] Service data should be persisted on a PostgreSQL db
+- [x] User password must be encrypted
+- [x] Service data should be persisted on a PostgreSQL db
 - [] All data listed should be paginated with limit = 20
 - [] User should be identified by JWT

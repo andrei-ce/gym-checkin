@@ -11,5 +11,9 @@ db/*.db
 #build
 build
 
+#tests
+coverage
+
 #OS
 .DS_Store
+
