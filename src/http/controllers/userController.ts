@@ -4,7 +4,7 @@ import {
   UserAlreadyExistsError,
   UserInvalidCredentialsError,
 } from '@/services/errors/user-errors';
-import { UserServicesFactory } from '@/services/factories/make-registerService';
+import { UserServicesFactory } from '@/services/factories/make-userServices';
 
 export class UserController {
   private userServices = new UserServicesFactory();
@@ -40,8 +40,7 @@ export class UserController {
     const { email, password } = authenticateBodySchema.parse(request.body);
 
     try {
-      const authService = this.authService;
-      await authService.handle({ email, password });
+      await this.authService.handle({ email, password });
     } catch (error) {
       if (error instanceof UserInvalidCredentialsError) {
         return reply.status(400).send({ message: error.message });
