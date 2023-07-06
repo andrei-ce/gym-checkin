@@ -4,7 +4,7 @@ import {
   UserAlreadyExistsError,
   UserInvalidCredentialsError,
 } from '@/services/errors/user-errors';
-import { UserServicesFactory } from '@/services/factories/make-userServices';
+import { UserServicesFactory } from '@/services/_factories/make-userServices';
 
 export class UserController {
   private userServices = new UserServicesFactory();

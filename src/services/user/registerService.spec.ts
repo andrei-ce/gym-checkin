@@ -1,16 +1,16 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { RegisterService } from './registerService';
 import { compare } from 'bcryptjs';
-import { InMemoryUsersReposiroty } from '@/repositories/in-memory/in-memory-users-repository';
-import { UserAlreadyExistsError } from './errors/user-errors';
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
+import { UserAlreadyExistsError } from '../errors/user-errors';
 
-let usersRepository: InMemoryUsersReposiroty;
+let usersRepository: InMemoryUsersRepository;
 let sut: RegisterService;
 
 describe('Register Service tests!', () => {
   beforeEach(() => {
-    // we don't use prisma instances because this is a unit test!
-    usersRepository = new InMemoryUsersReposiroty();
+    // we don't use prisma instances because this is a unit test (in-memory instead)!
+    usersRepository = new InMemoryUsersRepository();
     sut = new RegisterService(usersRepository);
   });
 

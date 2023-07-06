@@ -1,16 +1,16 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { AuthService } from './authService';
 import { hash } from 'bcryptjs';
-import { InMemoryUsersReposiroty } from '@/repositories/in-memory/in-memory-users-repository';
-import { UserInvalidCredentialsError } from './errors/user-errors';
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
+import { UserInvalidCredentialsError } from '../errors/user-errors';
 
-let usersRepository: InMemoryUsersReposiroty;
+let usersRepository: InMemoryUsersRepository;
 let sut: AuthService;
 
 describe('Authenticate Service tests!', () => {
   beforeEach(() => {
     // we don't use prisma instances because this is a unit test!
-    usersRepository = new InMemoryUsersReposiroty();
+    usersRepository = new InMemoryUsersRepository();
     // system under test
     sut = new AuthService(usersRepository);
   });

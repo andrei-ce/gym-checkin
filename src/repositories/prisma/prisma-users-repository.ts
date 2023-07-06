@@ -17,4 +17,9 @@ export class PrismaUsersRepository implements UsersRepository {
     });
     return user;
   }
+
+  async findById(id: string) {
+    throw new Error('Method not implemented.');
+    return null;
+  }
 }
