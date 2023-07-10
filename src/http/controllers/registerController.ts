@@ -3,6 +3,13 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { makeRegisterService } from '@/services/factories/make-registerService';
 
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+
 export async function registerController(
   request: FastifyRequest,
   reply: FastifyReply

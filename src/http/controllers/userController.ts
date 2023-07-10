@@ -6,23 +6,18 @@ import {
 } from '@/services/errors/user-errors';
 import { UserServicesFactory } from '@/services/factories/make-userServices';
 
-//FILE NOT USED; migrated to separate controllers
-//FILE NOT USED; migrated to separate controllers
-//FILE NOT USED; migrated to separate controllers
-//FILE NOT USED; migrated to separate controllers
-//FILE NOT USED; migrated to separate controllers
-//FILE NOT USED; migrated to separate controllers
-
 export class UserController {
   private userServices = new UserServicesFactory();
   private registerService = this.userServices.makeRegisterService();
   private authService = this.userServices.makeAuthService();
 
+  constructor() {
+    //we wither do this, OR call this as an arrow function in the routes.ts
+    this.register = this.register.bind(this);
+    // this.authenticate = this.authenticate.bind(this);
+  }
+
   async register(request: FastifyRequest, reply: FastifyReply) {
-    // console.log('>>>>>>>>>>>>>> this.userServices');
-    // console.log(this.userServices);
-    // console.log('>>>>>>>>>>>>>> this.registerService');
-    // console.log(this.registerService);
     const registerBodySchema = z.object({
       name: z.string(),
       email: z.string().email(),

@@ -3,6 +3,13 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { makeAuthService } from '@/services/factories/make-authService';
 
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+//FILE NOT USED; migrated to one UserController
+
 export async function authController(request: FastifyRequest, reply: FastifyReply) {
   const authenticateBodySchema = z.object({
     email: z.string().email(),
