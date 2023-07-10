@@ -1,6 +1,6 @@
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
-import { RegisterService } from '../user/registerService';
 import { AuthService } from '../user/authService';
+import { RegisterService } from '../user/registerService';
 
 export class UserServicesFactory {
   makeRegisterService(): RegisterService {

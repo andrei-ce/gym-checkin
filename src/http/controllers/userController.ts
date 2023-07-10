@@ -4,7 +4,14 @@ import {
   UserAlreadyExistsError,
   UserInvalidCredentialsError,
 } from '@/services/errors/user-errors';
-import { UserServicesFactory } from '@/services/_factories/make-userServices';
+import { UserServicesFactory } from '@/services/factories/make-userServices';
+
+//FILE NOT USED; migrated to separate controllers
+//FILE NOT USED; migrated to separate controllers
+//FILE NOT USED; migrated to separate controllers
+//FILE NOT USED; migrated to separate controllers
+//FILE NOT USED; migrated to separate controllers
+//FILE NOT USED; migrated to separate controllers
 
 export class UserController {
   private userServices = new UserServicesFactory();
@@ -12,6 +19,10 @@ export class UserController {
   private authService = this.userServices.makeAuthService();
 
   async register(request: FastifyRequest, reply: FastifyReply) {
+    // console.log('>>>>>>>>>>>>>> this.userServices');
+    // console.log(this.userServices);
+    // console.log('>>>>>>>>>>>>>> this.registerService');
+    // console.log(this.registerService);
     const registerBodySchema = z.object({
       name: z.string(),
       email: z.string().email(),
