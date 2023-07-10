@@ -4,7 +4,9 @@ import { z } from 'zod';
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
   PORT: z.coerce.number().default(3333),
-  MAX_DISTANCE_IN_KM: z.coerce.number().default(0.1),
+  MAX_DISTANCE_TO_CHECKIN_KM: z.coerce.number().default(0.1),
+  MAX_DISTANCE_TO_SEARCH_NEARBY_KM: z.coerce.number().default(10),
+  VALIDATION_TIME_LIMIT_MIN: z.coerce.number().default(20),
 });
 
 const _env = envSchema.safeParse(process.env);

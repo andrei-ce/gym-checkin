@@ -1,5 +1,5 @@
 import type { Checkin } from '@prisma/client';
-import { CheckinsRepository } from '@/repositories/checkins-repository';
+import { CheckInsRepository } from '@/repositories/checkins-repository';
 import { GymsRepository } from '@/repositories/gyms-repository';
 import { ResourceNotFoundError } from '@/services/errors/resource-not-found-error';
 import { getDistanceBtwCoordinates } from 'utils/get-distance-btw-coordinates';
@@ -18,10 +18,10 @@ interface CheckinServiceResponse {
 }
 
 export class CheckInService {
-  private checkinsRepository: CheckinsRepository;
+  private checkinsRepository: CheckInsRepository;
   private gymsRepository: GymsRepository;
 
-  constructor(checkinsRepository: CheckinsRepository, gymsRepository: GymsRepository) {
+  constructor(checkinsRepository: CheckInsRepository, gymsRepository: GymsRepository) {
     this.checkinsRepository = checkinsRepository;
     this.gymsRepository = gymsRepository;
   }
@@ -43,8 +43,7 @@ export class CheckInService {
       { latitude: userLatitude, longitude: userLongitude }
     );
 
-    const maxDistance = env.MAX_DISTANCE_IN_KM;
-    if (dist > maxDistance) {
+    if (dist > env.MAX_DISTANCE_TO_CHECKIN_KM) {
       throw new MaxDistanceError();
     }
 

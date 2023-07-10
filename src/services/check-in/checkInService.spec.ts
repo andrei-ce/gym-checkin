@@ -1,18 +1,17 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { InMemoryCheckinsRepository } from '@/repositories/in-memory/in-memory-checkins-repository';
+import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-checkins-repository';
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository';
 import { CheckInService } from './checkinService';
-import { Decimal } from '@prisma/client/runtime/library';
 import { MaxDistanceError, SameDayError } from '../errors/check-in-errors';
 
-let checkInsRepository: InMemoryCheckinsRepository;
+let checkInsRepository: InMemoryCheckInsRepository;
 let gymsRepository: InMemoryGymsRepository;
 let sut: CheckInService;
 
 describe('Check-in Service tests!', () => {
   beforeEach(async () => {
     // we don't use prisma instances because this is a unit test!
-    checkInsRepository = new InMemoryCheckinsRepository();
+    checkInsRepository = new InMemoryCheckInsRepository();
     gymsRepository = new InMemoryGymsRepository();
     sut = new CheckInService(checkInsRepository, gymsRepository);
 

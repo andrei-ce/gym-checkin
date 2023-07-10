@@ -17,7 +17,6 @@ export class UserController {
       email: z.string().email(),
       password: z.string().min(6),
     });
-
     const { name, email, password } = registerBodySchema.parse(request.body);
 
     try {
