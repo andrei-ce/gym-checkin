@@ -11,6 +11,7 @@ export class UserController {
   private userServices = new UserServicesFactory();
   private registerService = this.userServices.makeRegisterService();
   private authService = this.userServices.makeAuthService();
+  private getUserProfileService = this.userServices.makeGetUserProfileService();
 
   constructor() {
     //we either do bind, OR call this as an arrow function in the routes.ts
@@ -62,18 +63,19 @@ export class UserController {
   }
 
   async profile(request: FastifyRequest, reply: FastifyReply) {
-    //this comes from the authMiddleware
-    const decodedToken = request.user;
-    console.log(decodedToken);
+    try {
+      //this comes from the authMiddleware
+      const userToken = request.user;
 
-    // try {
-    //   request.jwtVerify();
-    // } catch (error) {
-    //   if (error instanceof InvalidJWTError) {
-    //     return reply.status(401).send({ message: error.message });
-    //   }
-    // }
-
-    return reply.code(200).send('profile');
+      const { user } = await this.getUserProfileService.handle({
+        userId: userToken.sub,
+      });
+      return reply.code(200).send({ ...user, password_hash: undefined });
+    } catch (error) {
+      if (error instanceof InvalidJWTError) {
+        return reply.status(401).send({ message: error.message });
+      }
+    }
+    return reply.code(500);
   }
 }

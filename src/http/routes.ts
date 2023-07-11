@@ -2,7 +2,7 @@
 // import { registerController } from './controllers/registerController';
 import { FastifyInstance } from 'fastify';
 import { UserController } from './controllers/userController';
-import { authMiddleware } from '@/middlewares/authenticate';
+import { authMiddleware } from './middlewares/authenticate';
 
 const userController = new UserController();
 
@@ -15,11 +15,7 @@ export const appRoutes = async (app: FastifyInstance) => {
   );
 
   // ** Authenticated routes **
-  app.get(
-    '/me',
-    {
-      onRequest: [authMiddleware],
-    },
-    (request, reply) => userController.profile(request, reply)
+  app.get('/me', { onRequest: [authMiddleware] }, (request, reply) =>
+    userController.profile(request, reply)
   );
 };

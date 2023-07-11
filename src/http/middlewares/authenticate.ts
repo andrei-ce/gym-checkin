@@ -6,6 +6,6 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
     await request.jwtVerify();
   } catch (error) {
     const JWTError = new InvalidJWTError();
-    reply.code(404).send({ message: JWTError.message });
+    reply.code(401).send({ message: JWTError.message });
   }
 }
