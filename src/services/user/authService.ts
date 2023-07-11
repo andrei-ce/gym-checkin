@@ -30,8 +30,8 @@ export class AuthService {
       throw new UserInvalidCredentialsError();
     }
 
-    //encrypt user Id on a JWT ?
-    //return JWT
+    // Encrypt user Id on a JWT? No, because we want Services to be pure.
+    // JWT might be needed only in http therefore it's in the controller
     return { user };
   }
 }

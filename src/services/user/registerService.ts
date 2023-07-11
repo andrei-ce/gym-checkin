@@ -32,9 +32,7 @@ export class RegisterService {
   }: RegisterServiceRequest): Promise<RegisterServiceResponse> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
     if (userAlreadyExists) {
-      throw new UserAlreadyExistsError(
-        'Cannot register a user with an existing email'
-      );
+      throw new UserAlreadyExistsError();
     }
     //len 6 is something recommended on a service that is not core
     const password_hash = await hash(password, 6);

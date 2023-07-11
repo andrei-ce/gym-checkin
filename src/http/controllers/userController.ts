@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import {
+  InvalidJWTError,
   UserAlreadyExistsError,
   UserInvalidCredentialsError,
 } from '@/services/errors/user-errors';
@@ -12,7 +13,7 @@ export class UserController {
   private authService = this.userServices.makeAuthService();
 
   constructor() {
-    //we wither do this, OR call this as an arrow function in the routes.ts
+    //we either do bind, OR call this as an arrow function in the routes.ts
     this.register = this.register.bind(this);
     // this.authenticate = this.authenticate.bind(this);
   }
@@ -45,14 +46,34 @@ export class UserController {
     const { email, password } = authenticateBodySchema.parse(request.body);
 
     try {
-      await this.authService.handle({ email, password });
+      const { user } = await this.authService.handle({ email, password });
+
+      // Encrypt user Id on a JWT here?
+      // Yes, because we want Services to be pure. JWT might only be needed in http
+      const token = await reply.jwtSign({}, { sign: { sub: user.id } });
+
+      return reply.code(200).send({ token });
     } catch (error) {
       if (error instanceof UserInvalidCredentialsError) {
         return reply.status(400).send({ message: error.message });
       }
       throw error;
     }
+  }
 
-    return reply.code(200).send('banana');
+  async profile(request: FastifyRequest, reply: FastifyReply) {
+    //this comes from the authMiddleware
+    const decodedToken = request.user;
+    console.log(decodedToken);
+
+    // try {
+    //   request.jwtVerify();
+    // } catch (error) {
+    //   if (error instanceof InvalidJWTError) {
+    //     return reply.status(401).send({ message: error.message });
+    //   }
+    // }
+
+    return reply.code(200).send('profile');
   }
 }

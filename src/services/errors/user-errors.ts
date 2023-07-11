@@ -9,3 +9,9 @@ export class UserInvalidCredentialsError extends Error {
     super(message);
   }
 }
+
+export class InvalidJWTError extends Error {
+  constructor(message = 'Invalid authorization token.') {
+    super(message);
+  }
+}
