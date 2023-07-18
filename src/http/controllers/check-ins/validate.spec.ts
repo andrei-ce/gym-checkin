@@ -13,7 +13,7 @@ describe('Validate check-in test E2E', () => {
   });
 
   it('should validate a check-in', async () => {
-    const { token } = await createAndAuthUser(app);
+    const { token } = await createAndAuthUser(app, true);
 
     // Sometimes we have a test that depend on the creation of certain resources which don't have a specific route for creation. We could then create it directly on the DB, which is less compliant with a E2E test and more succeptible to errors. We do this here as an example and shortcut (!!!)
 

@@ -51,9 +51,26 @@ export class UserController {
 
       // Encrypt user Id on a JWT here?
       // Yes, because we want Services to be pure. JWT might only be needed in http
-      const token = await reply.jwtSign({}, { sign: { sub: user.id } });
+      const token = await reply.jwtSign(
+        { role: user.role },
+        { sign: { sub: user.id } }
+      );
 
-      return reply.code(200).send({ token });
+      const refreshToken = await reply.jwtSign(
+        { role: user.role },
+        //this means that a user will onlt be logged out if 7 days away from the app
+        { sign: { sub: user.id, expiresIn: '7d' } }
+      );
+
+      return reply
+        .setCookie('refreshToken', refreshToken, {
+          path: '/', // all BE routes can read it
+          secure: true, // if our server is using HTTPS, it's then encrypted to FE
+          sameSite: true, // same domain
+          httpOnly: true, // BE only
+        })
+        .code(200)
+        .send({ token });
     } catch (error) {
       if (error instanceof UserInvalidCredentialsError) {
         return reply.status(400).send({ message: error.message });
@@ -77,5 +94,28 @@ export class UserController {
       }
     }
     return reply.code(500);
+  }
+
+  async refresh(request: FastifyRequest, reply: FastifyReply) {
+    await request.jwtVerify({ onlyCookie: true }); //ignores the Header and uses Cookies to check refreshToken
+
+    const { role } = request.user;
+
+    const token = await reply.jwtSign({ role }, { sign: { sub: request.user.sub } });
+
+    const refreshToken = await reply.jwtSign(
+      { role },
+      { sign: { sub: request.user.sub, expiresIn: '7d' } }
+    );
+
+    return reply
+      .setCookie('refreshToken', refreshToken, {
+        path: '/', // all BE routes can read it
+        secure: true, // if our server is using HTTPS, it's then encrypted to FE
+        sameSite: true, // same domain
+        httpOnly: true, // BE only
+      })
+      .code(200)
+      .send({ token });
   }
 }

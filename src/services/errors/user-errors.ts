@@ -15,3 +15,9 @@ export class InvalidJWTError extends Error {
     super(message);
   }
 }
+
+export class InsufficientRightsError extends Error {
+  constructor(message = `Insufficient rights.`) {
+    super(message);
+  }
+}
