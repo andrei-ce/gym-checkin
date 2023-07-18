@@ -9,7 +9,7 @@ const envSchema = z.object({
   MAX_DISTANCE_TO_SEARCH_NEARBY_KM: z.coerce.number().default(10),
   VALIDATION_TIME_LIMIT_MIN: z.coerce.number().default(20),
   JWT_SECRET: z.string(),
-  // DATABASE_URL: z.string(),
+  DATABASE_URL: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
