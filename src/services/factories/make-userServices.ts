@@ -2,12 +2,9 @@ import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-reposi
 import { AuthService } from '../user/authService';
 import { RegisterService } from '../user/registerService';
 import { GetUserProfileService } from '../user/getProfileService';
-import { PrismaCheckInsRepository } from '@/repositories/prisma/prisma-check-ins-repository';
-import { GetUserMetricsService } from '../user/getUserMetrics';
 
 export class UserServicesFactory {
   private usersRepositoryType = new PrismaUsersRepository();
-  private checkInsRepositoryType = new PrismaCheckInsRepository();
 
   makeRegisterService(): RegisterService {
     // SOLI(D) because the service does not depend on picking a the repository,
@@ -21,9 +18,5 @@ export class UserServicesFactory {
 
   makeGetUserProfileService(): GetUserProfileService {
     return new GetUserProfileService(this.usersRepositoryType);
-  }
-
-  makeGetUserMetricsService(): GetUserMetricsService {
-    return new GetUserMetricsService(this.checkInsRepositoryType);
   }
 }

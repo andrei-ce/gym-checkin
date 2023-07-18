@@ -47,20 +47,18 @@ export class CheckInService {
       throw new MaxDistanceError();
     }
 
-    const checkInOnSameDay = await this.checkinsRepository.findByUserIdOnDate(
+    const isCheckInOnSameDay = await this.checkinsRepository.findByUserIdOnDate(
       userId,
       new Date()
     );
 
-    if (checkInOnSameDay) throw new SameDayError();
+    if (isCheckInOnSameDay) throw new SameDayError();
 
     const checkIn = await this.checkinsRepository.create({
       user_id: userId,
       gym_id: gymId,
     });
 
-    //encrypt user Id on a JWT ?
-    //return JWT
     return { checkIn };
   }
 }

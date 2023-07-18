@@ -4,6 +4,7 @@ import { z } from 'zod';
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
   PORT: z.coerce.number().default(3333),
+  DATABASE_URL: z.string(),
   PAGINATION_SIZE: z.coerce.number().default(20),
   MAX_DISTANCE_TO_CHECKIN_KM: z.coerce.number().default(0.1),
   MAX_DISTANCE_TO_SEARCH_NEARBY_KM: z.coerce.number().default(10),

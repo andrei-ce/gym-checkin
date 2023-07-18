@@ -1,9 +1,9 @@
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
 import { PrismaGymsRepository } from '@/repositories/prisma/prisma-gyms-repository';
 import { PrismaCheckInsRepository } from '@/repositories/prisma/prisma-check-ins-repository';
 import { CheckInService } from '../check-in/checkinService';
 import { ValidateCheckInService } from '../check-in/validateCheckInService';
-import { GetCheckInHistoryService } from '../user/getCheckInHistory';
+import { GetCheckInHistoryService } from '../check-in/getCheckInHistory';
+import { GetUserMetricsService } from '../check-in/getUserMetrics';
 
 export class CheckInServicesFactory {
   private checkInsRepositoryType = new PrismaCheckInsRepository();
@@ -19,5 +19,9 @@ export class CheckInServicesFactory {
 
   makeGetCheckInHistoryService(): GetCheckInHistoryService {
     return new GetCheckInHistoryService(this.checkInsRepositoryType);
+  }
+
+  makeGetUserMetricsService(): GetUserMetricsService {
+    return new GetUserMetricsService(this.checkInsRepositoryType);
   }
 }
