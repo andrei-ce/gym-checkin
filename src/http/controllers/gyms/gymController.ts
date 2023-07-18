@@ -29,7 +29,7 @@ export class GymController {
     const { name, description, phone, latitude, longitude } =
       createGymBodySchema.parse(request.body);
 
-    await this.createGymService.handle({
+    const createdGym = await this.createGymService.handle({
       name,
       description,
       phone,
@@ -37,7 +37,7 @@ export class GymController {
       longitude,
     });
 
-    return reply.code(201).send();
+    return reply.code(201).send(createdGym);
   }
 
   async search(request: FastifyRequest, reply: FastifyReply) {

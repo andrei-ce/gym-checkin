@@ -15,10 +15,10 @@ export const checkInRoutes = async (app: FastifyInstance) => {
   app.patch('/check-ins/:checkInId/validate', (request, reply) =>
     checkInController.validate(request, reply)
   );
-  app.get('/check-ins/details', (request, reply) =>
+  app.get('/check-ins/history', (request, reply) =>
     checkInController.history(request, reply)
   );
-  app.get('/check-ins/count', (request, reply) =>
+  app.get('/check-ins/metrics', (request, reply) =>
     checkInController.metrics(request, reply)
   );
 };

@@ -31,9 +31,9 @@ export class CheckInController {
     });
 
     const { userLatitude, userLongitude } = createCheckInBodySchema.parse(
-      request.params
+      request.body
     );
-    const { gymId } = createCheckInParamsSchema.parse(request.body);
+    const { gymId } = createCheckInParamsSchema.parse(request.params);
 
     const checkIn = await this.createCheckInService.handle({
       userId: request.user.sub,
