@@ -2,6 +2,17 @@
 
 GymPass-style backend application
 
+## Basic setup
+
+1. Run `npm install`
+2. Create a .env file, following the example under .env.example. The main variable to
+   change is the local database connection string. Add a username, password, port and
+   name of your liking.
+3. With docker installed locally, run `docker compose up -d`
+4. Checkout some of the scripts at pagkage.json, but start with `npm run dev`
+5. You can make any request to http://localhost:3333. Check some of the requests you
+   can make under `./src/controllers/**/routes.ts`. We will soon add some examples.
+
 ## Functional requirements
 
 - [x] It should be able to register
@@ -21,12 +32,12 @@ GymPass-style backend application
 - [x] User should not be able to check-in > 1x per day
 - [x] User should only be able to check into a gym that is <= 100m
 - [x] Check-in should be validated <= 20 min after its been created
-- [] Check-in can only be validated by admins
-- [] The gym can only be registered by admins
+- [x] Check-in can only be validated by admins
+- [x] The gym can only be registered by admins
 
 ## Non-functional requirements
 
 - [x] User password must be encrypted
 - [x] Service data should be persisted on a PostgreSQL db
 - [x] All data listed should be paginated with limit = 20
-- [] User should be identified by JWT
+- [x] User should be identified by JWT
